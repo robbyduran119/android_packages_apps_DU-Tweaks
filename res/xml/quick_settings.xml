@@ -75,6 +75,12 @@
         android:summary="@string/qqs_scroll_summary"
         android:defaultValue="false"/>
 
+    <com.dirtyunicorns.tweaks.preferences.SecureSettingSwitchPreference
+        android:key="lockscreen_qs_disabled"
+        android:title="@string/lockscreen_qs_disabled_title"
+        android:summary="@string/lockscreen_qs_disabled_summary"
+        android:defaultValue="false" />
+
     <PreferenceCategory
         android:key="quick_settings_animations"
         android:title="@string/qs_animation_options_title"/>
