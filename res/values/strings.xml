@@ -561,7 +561,10 @@
     <string name="expanded_desktop_state">Expanded state</string>
     <string name="expanded_enabled_for_all">Enabled for all</string>
     <string name="expanded_user_configurable">User configurable</string>
-    
+    <string name="expanded_desktop_style">Expanded desktop style</string>
+    <string name="expanded_desktop_style_description">Choose a default expanded desktop style</string>
+    <string name="expanded_desktop_options">Expanded desktop options</string>
+
     <!-- Statusbar Clock options -->
     <string name="status_bar_clock_title">Clock options</string>
     <string name="status_bar_show_clock_title">Show clock &amp; date</string>
