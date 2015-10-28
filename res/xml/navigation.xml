@@ -26,4 +26,9 @@
         android:fragment="com.dirtyunicorns.tweaks.fragments.NavigationBar"
         android:layout="@layout/navigationbar" />
 
+    <com.android.settings.applications.LayoutPreference
+        android:key="expanded_desktop_category"
+        android:fragment="com.dirtyunicorns.tweaks.fragments.ExpandedDesktop"
+        android:layout="@layout/expanded_desktop" />
+
 </PreferenceScreen>
