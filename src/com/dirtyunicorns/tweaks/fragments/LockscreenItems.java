@@ -17,6 +17,7 @@
 package com.dirtyunicorns.tweaks.fragments;
 
 import android.content.ContentResolver;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.ListPreference;
@@ -37,8 +38,10 @@ import com.android.internal.logging.nano.MetricsProto;
 public class LockscreenItems extends SettingsPreferenceFragment implements Preference.OnPreferenceChangeListener {
 
     private static final String TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture";
-
+    private static final String PREF_LOCKSCREEN_BATTERY_INFO = "lockscreen_battery_info";
+    
     private ListPreference mTorchPowerButton;
+    private SwitchPreference mLockscreenBatteryInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,12 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
             mTorchPowerButton.setValue(Integer.toString(mTorchPowerButtonValue));
             mTorchPowerButton.setSummary(mTorchPowerButton.getEntry());
             mTorchPowerButton.setOnPreferenceChangeListener(this);
+        }
+        
+        // We need to remove the lockscreen battery info if the device is not a Qualcomm device
+        mLockscreenBatteryInfo = (SwitchPreference) findPreference(PREF_LOCKSCREEN_BATTERY_INFO);
+        if (Build.BOARD.contains("dragon") || Build.BOARD.contains("shieldtablet")) {
+            prefScreen.removePreference(mLockscreenBatteryInfo);
         }
     }
 
