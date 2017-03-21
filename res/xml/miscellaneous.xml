@@ -69,6 +69,11 @@
         android:summary="@string/face_auto_unlock_summary"
         android:defaultValue="false" />
 
+    <PreferenceScreen
+        android:key="screenstate_category"
+        android:title="@string/screen_state_toggles_title"
+        android:fragment="com.dirtyunicorns.tweaks.fragments.ScreenStateToggles"/>
+
     <Preference
         android:key="gesture_anywhere"
         android:title="@string/gesture_anywhere_title"
