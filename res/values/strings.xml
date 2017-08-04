@@ -746,4 +746,8 @@
     <string name="smart_pixels_shift_title">Burn-in protection</string>
     <string name="smart_pixels_shift_summary">Prevents burn-in on OLED devices by shifting pixels every so often</string>
 
+    <!-- Sensor block per-package -->
+    <string name="various_tweaks_category">Various tweaks</string>
+    <string name="sensor_block_title">Sensor block per-package</string>
+    <string name="sensor_block_summary">Block access to certain sensors for some apps to save battery.</string>
 </resources>
