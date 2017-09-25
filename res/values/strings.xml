@@ -226,12 +226,14 @@
     <string name="heads_up_title">Allow Heads up</string>
     <string name="heads_up_summary_enabled">Heads-up notifications are enabled</string>
     <string name="heads_up_summary_disabled">Heads-up notifications are disabled</string>
-    <string name="heads_up_blacklist_add_package_title">Add app</string>
-    <string name="heads_up_blacklist_add_package_summary">Disable heads-up notifications in these applications</string>
+    <string name="heads_up_add_package_title">Add app</string>
+    <string name="heads_up_stoplist_add_package_summary">Disable heads up notifications in these applications</string>
+    <string name="heads_up_blacklist_add_package_summary">Disable heads-up from these applications</string>
+    <string name="heads_up_stoplist_title">Stoplist</string>
     <string name="heads_up_blacklist_title">Blacklist</string>
-    <string name="heads_up_blacklist_choose_app">Select app</string>
-    <string name="heads_up_blacklist_dialog_delete_title">Delete</string>
-    <string name="heads_up_blacklist_dialog_delete_message">Remove selected item?</string>
+    <string name="heads_up_choose_app">Select app</string>
+    <string name="heads_up_dialog_delete_title">Delete</string>
+    <string name="heads_up_dialog_delete_message">Remove selected item?</string>
 
     <!-- Status bar ticker -->
     <string name="ticker_mode_title">Allow notification ticker</string>

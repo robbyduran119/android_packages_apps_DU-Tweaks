@@ -52,16 +52,21 @@ import java.util.Map;
 public class HeadsUp extends SettingsPreferenceFragment
         implements Preference.OnPreferenceClickListener {
 
-    private static final int DIALOG_BLACKLIST_APPS = 0;
+    private static final int DIALOG_STOPLIST_APPS = 0;
+    private static final int DIALOG_BLACKLIST_APPS = 1;
 
     private static final String KEY_HEADS_UP_NOTIFICATIONS_ENABLED = "heads_up_notifications_enabled";
 
     private PackageListAdapter mPackageAdapter;
     private PackageManager mPackageManager;
+    private PreferenceGroup mStoplistPrefList;
     private PreferenceGroup mBlacklistPrefList;
+    private Preference mAddStoplistPref;
     private Preference mAddBlacklistPref;
 
+    private String mStoplistPackageList;
     private String mBlacklistPackageList;
+    private Map<String, Package> mStoplistPackages;
     private Map<String, Package> mBlacklistPackages;
 
     private GlobalSettingSwitchPreference mHeadsUpNotificationsEnabled;
@@ -77,11 +82,19 @@ public class HeadsUp extends SettingsPreferenceFragment
         mPackageManager = getPackageManager();
         mPackageAdapter = new PackageListAdapter(getActivity());
 
+        mStoplistPrefList = (PreferenceGroup) findPreference("stoplist_applications");
+        mStoplistPrefList.setOrderingAsAdded(false);
+
         mBlacklistPrefList = (PreferenceGroup) findPreference("blacklist_applications");
         mBlacklistPrefList.setOrderingAsAdded(false);
+
+        mStoplistPackages = new HashMap<String, Package>();
         mBlacklistPackages = new HashMap<String, Package>();
 
+        mAddStoplistPref = findPreference("add_stoplist_packages");
         mAddBlacklistPref = findPreference("add_blacklist_packages");
+
+        mAddStoplistPref.setOnPreferenceClickListener(this);
         mAddBlacklistPref.setOnPreferenceClickListener(this);
 
         mHeadsUpNotificationsEnabled = (GlobalSettingSwitchPreference) findPreference(KEY_HEADS_UP_NOTIFICATIONS_ENABLED);
@@ -101,7 +114,7 @@ public class HeadsUp extends SettingsPreferenceFragment
 
     @Override
     public int getDialogMetricsCategory(int dialogId) {
-        if (dialogId == DIALOG_BLACKLIST_APPS ) {
+        if (dialogId == DIALOG_STOPLIST_APPS || dialogId == DIALOG_BLACKLIST_APPS ) {
             return MetricsProto.MetricsEvent.DIRTYTWEAKS;
         }
         return 0;
@@ -117,11 +130,22 @@ public class HeadsUp extends SettingsPreferenceFragment
         final ListView list = new ListView(getActivity());
         list.setAdapter(mPackageAdapter);
 
-        builder.setTitle(R.string.heads_up_blacklist_choose_app);
+        builder.setTitle(R.string.heads_up_choose_app);
         builder.setView(list);
         dialog = builder.create();
 
         switch (id) {
+            case DIALOG_STOPLIST_APPS:
+                list.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        // Add empty application definition, the user will be able to edit it later
+                        PackageItem info = (PackageItem) parent.getItemAtPosition(position);
+                        addCustomApplicationPref(info.packageName, mStoplistPackages);
+                        dialog.cancel();
+                    }
+                });
+                break;
             case DIALOG_BLACKLIST_APPS:
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -176,8 +200,18 @@ public class HeadsUp extends SettingsPreferenceFragment
         }
 
         // Add the Application Preferences
-        if (mBlacklistPrefList != null) {
+        if (mStoplistPrefList != null && mBlacklistPrefList != null) {
+            mStoplistPrefList.removeAll();
             mBlacklistPrefList.removeAll();
+
+            for (Package pkg : mStoplistPackages.values()) {
+                try {
+                    Preference pref = createPreferenceFromInfo(pkg);
+                    mStoplistPrefList.addPreference(pref);
+                } catch (PackageManager.NameNotFoundException e) {
+                    // Do nothing
+                }
+            }
 
             for (Package pkg : mBlacklistPackages.values()) {
                 try {
@@ -190,25 +224,31 @@ public class HeadsUp extends SettingsPreferenceFragment
         }
 
         // Keep these at the top
+        mAddStoplistPref.setOrder(0);
         mAddBlacklistPref.setOrder(0);
         // Add 'add' options
+        mStoplistPrefList.addPreference(mAddStoplistPref);
         mBlacklistPrefList.addPreference(mAddBlacklistPref);
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if (preference == mAddBlacklistPref) {
+        if (preference == mAddStoplistPref) {
+            showDialog(DIALOG_STOPLIST_APPS);
+        } else if (preference == mAddBlacklistPref) {
             showDialog(DIALOG_BLACKLIST_APPS);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.heads_up_blacklist_dialog_delete_title)
-                    .setMessage(R.string.heads_up_blacklist_dialog_delete_message)
+                    .setTitle(R.string.heads_up_dialog_delete_title)
+                    .setMessage(R.string.heads_up_dialog_delete_message)
                     .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (preference == mBlacklistPrefList.findPreference(preference.getKey())) {
                                  removeApplicationPref(preference.getKey(), mBlacklistPackages);
+                            } else if (preference == mStoplistPrefList.findPreference(preference.getKey())) {
+                                removeApplicationPref(preference.getKey(), mStoplistPackages);
                             }
                         }
                     })
@@ -225,7 +265,7 @@ public class HeadsUp extends SettingsPreferenceFragment
         if (pkg == null) {
             pkg = new Package(packageName);
             map.put(packageName, pkg);
-            savePackageList(false);
+            savePackageList(false, map);
             refreshCustomApplicationPrefs();
         }
     }
@@ -247,7 +287,7 @@ public class HeadsUp extends SettingsPreferenceFragment
 
     private void removeApplicationPref(String packageName, Map<String,Package> map) {
         if (map.remove(packageName) != null) {
-            savePackageList(false);
+            savePackageList(false, map);
             refreshCustomApplicationPrefs();
         }
     }
@@ -255,8 +295,17 @@ public class HeadsUp extends SettingsPreferenceFragment
     private boolean parsePackageList() {
         boolean parsed = false;
 
+        final String stoplistString = Settings.System.getString(getContentResolver(),
+                Settings.System.HEADS_UP_STOPLIST_VALUES);
         final String blacklistString = Settings.System.getString(getContentResolver(),
                 Settings.System.HEADS_UP_BLACKLIST_VALUES);
+
+        if (!TextUtils.equals(mStoplistPackageList, stoplistString)) {
+            mStoplistPackageList = stoplistString;
+            mStoplistPackages.clear();
+            parseAndAddToMap(stoplistString, mStoplistPackages);
+            parsed = true;
+        }
 
         if (!TextUtils.equals(mBlacklistPackageList, blacklistString)) {
             mBlacklistPackageList = blacklistString;
@@ -283,17 +332,25 @@ public class HeadsUp extends SettingsPreferenceFragment
         }
     }
 
-    private void savePackageList(boolean preferencesUpdated) {
+    private void savePackageList(boolean preferencesUpdated, Map<String,Package> map) {
+        String setting = map == mStoplistPackages
+                ? Settings.System.HEADS_UP_STOPLIST_VALUES
+                : Settings.System.HEADS_UP_BLACKLIST_VALUES;
+
         List<String> settings = new ArrayList<String>();
-        for (Package app : mBlacklistPackages.values()) {
+        for (Package app : map.values()) {
             settings.add(app.toString());
         }
         final String value = TextUtils.join("|", settings);
         if (preferencesUpdated) {
-            mBlacklistPackageList = value;
+            if (TextUtils.equals(setting, Settings.System.HEADS_UP_STOPLIST_VALUES)) {
+                mStoplistPackageList = value;
+            } else {
+                mBlacklistPackageList = value;
+            }
         }
         Settings.System.putString(getContentResolver(),
-                Settings.System.HEADS_UP_BLACKLIST_VALUES, value);
+                setting, value);
     }
 
     private void updatePrefs() {
@@ -305,6 +362,7 @@ public class HeadsUp extends SettingsPreferenceFragment
         if (enabled) {
             Settings.Global.putInt(resolver,
                 Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 0);
+            mStoplistPrefList.setEnabled(false);
             mBlacklistPrefList.setEnabled(false);
             mHeadsUpNotificationsEnabled.setEnabled(false);
         }
