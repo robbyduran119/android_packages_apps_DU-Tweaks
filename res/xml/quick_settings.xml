@@ -69,6 +69,12 @@
         android:dependency="qs_show_brightness"
         android:defaultValue="false"/>
 
+    <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
+        android:key="qs_quickbar_scroll_enabled"
+        android:title="@string/qqs_scroll_title"
+        android:summary="@string/qqs_scroll_summary"
+        android:defaultValue="false"/>
+
     <PreferenceCategory
         android:key="quick_settings_animations"
         android:title="@string/qs_animation_options_title"/>

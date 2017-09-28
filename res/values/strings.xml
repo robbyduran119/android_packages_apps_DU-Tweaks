@@ -188,6 +188,10 @@
     <string name="qs_tile_title_visibility_title">Tile titles</string>
     <string name="qs_tile_title_visibility_summary">Show titles underneath quick settings tiles</string>
 
+    <!-- Small quick settings scroller -->
+    <string name="qqs_scroll_title">Scroll small QS tiles</string>
+    <string name="qqs_scroll_summary">Allow scrolling through the small QS tiles</string>
+
     <!-- Clear all recents -->
     <string name="aosp_recents_title">AOSP recents</string>
     <string name="show_clear_all_recents_button_title">Clear-all FAB</string>
