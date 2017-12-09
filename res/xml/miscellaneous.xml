@@ -57,6 +57,12 @@
         android:summary="@string/sensor_block_summary"
         android:defaultValue="false" />
 
+    <Preference
+        android:key="gesture_anywhere"
+        android:title="@string/gesture_anywhere_title"
+        android:summary="@string/gesture_anywhere_summary"
+        android:fragment="com.dirtyunicorns.tweaks.gestureanywhere.GestureAnywhereSettings" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

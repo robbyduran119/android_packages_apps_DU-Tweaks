@@ -37,4 +37,7 @@
     <color name="expanded_button_color_normal">#4CAF50</color>
     <color name="expanded_button_color_close">#F44336</color>
 
+    <!-- Gesture Anywhere -->
+    <color name="ga_gesture_color">@color/material_deep_teal_500</color>
+
 </resources>
