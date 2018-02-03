@@ -55,24 +55,14 @@ public class Statusbar extends SettingsPreferenceFragment implements Preference.
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.statusbar);
 
-        Preference BatteryOptions = findPreference("battery_options_category");
-        if (!getResources().getBoolean(R.bool.has_battery_options)) {
-            getPreferenceScreen().removePreference(BatteryOptions);
-        } else {
-            mBattery = (LayoutPreference) findPreference(BATTERY_CATEGORY);
-            mBattery.setTitle(R.string.battery_options_title);
-        }
+        mBattery = (LayoutPreference) findPreference(BATTERY_CATEGORY);
+        mBattery.setTitle(R.string.battery_options_title);
 
         mCarrierLabel = (LayoutPreference) findPreference(CARRIER_LABEL_CATEGORY);
         mCarrierLabel.setTitle(R.string.carrier_label_title);
 
-        Preference ClockOptions = findPreference("clock_options_category");
-        if (!getResources().getBoolean(R.bool.has_clock_options)) {
-            getPreferenceScreen().removePreference(ClockOptions);
-        } else {
-            mClock = (LayoutPreference) findPreference(CLOCK_CATEGORY);
-            mClock.setTitle(R.string.clock_options_title);
-        }
+        mClock = (LayoutPreference) findPreference(CLOCK_CATEGORY);
+        mClock.setTitle(R.string.clock_options_title);
 
         mNotifications = (LayoutPreference) findPreference(NOTIFICATIONS_CATEGORY);
         mNotifications.setTitle(R.string.notifications_title);
