@@ -20,9 +20,9 @@
     <bool name="has_device_extras">false</bool>
 
     <!-- Whether to display battery options -->
-    <bool name="has_battery_options">false</bool>
+    <bool name="has_battery_options">true</bool>
 
     <!-- Whether to display clock options -->
-    <bool name="has_clock_options">false</bool>
+    <bool name="has_clock_options">true</bool>
 
 </resources>
