@@ -1084,4 +1084,8 @@
     <string name="qs_tile_theme_title">QS Tile Accents</string>
     <string name="qs_tile_theme_summary">It will enable Device Accent on QS Tiles n Titles</string>
 
+    <!-- Face unlock toggle -->
+    <string name="face_auto_unlock_title">Face auto unlock</string>
+    <string name="face_auto_unlock_summary">Dismiss lockscreen after face unlocking</string>
+
 </resources>
