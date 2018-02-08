@@ -38,11 +38,9 @@ public class Navigation extends SettingsPreferenceFragment implements Preference
 
     private static final String BUTTONS_CATEGORY = "buttons_category";
     private static final String NAVIGATION_CATEGORY = "navigation_category";
-    private static final String EXPANDED_DESKTOP_CATEGORY = "expanded_desktop_category";
 
     private LayoutPreference mButtons;
     private LayoutPreference mNavigation;
-    private LayoutPreference mExpandedDesktop;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,9 +52,6 @@ public class Navigation extends SettingsPreferenceFragment implements Preference
 
         mNavigation = (LayoutPreference) findPreference(NAVIGATION_CATEGORY);
         mNavigation.setTitle(R.string.navigationbar_title);
-
-        mExpandedDesktop = (LayoutPreference) findPreference(EXPANDED_DESKTOP_CATEGORY);
-        mExpandedDesktop.setTitle(R.string.expanded_desktop_title);
     }
 
     @Override
