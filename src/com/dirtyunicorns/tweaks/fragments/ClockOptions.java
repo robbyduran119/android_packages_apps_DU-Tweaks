@@ -50,6 +50,7 @@ public class ClockOptions extends SettingsPreferenceFragment implements
     private static final String CLOCK_DATE_DISPLAY = "clock_date_display";
     private static final String CLOCK_DATE_STYLE = "clock_date_style";
     private static final String CLOCK_DATE_FORMAT = "clock_date_format";
+    private static final String CLOCK_DATE_POSITION = "clock_date_position";
 
     public static final int CLOCK_DATE_STYLE_LOWERCASE = 1;
     public static final int CLOCK_DATE_STYLE_UPPERCASE = 2;
@@ -62,6 +63,7 @@ public class ClockOptions extends SettingsPreferenceFragment implements
     private ListPreference mClockDateDisplay;
     private ListPreference mClockDateStyle;
     private ListPreference mClockDateFormat;
+    private ListPreference mClockDatePosition;
 
     @Override
     public int getMetricsCategory() {
@@ -116,6 +118,12 @@ public class ClockOptions extends SettingsPreferenceFragment implements
         mClockDateStyle.setValue(Integer.toString(Settings.System.getInt(resolver,
                 Settings.System.STATUSBAR_CLOCK_DATE_STYLE, 0)));
         mClockDateStyle.setSummary(mClockDateStyle.getEntry());
+        
+        mClockDatePosition = (ListPreference) findPreference(CLOCK_DATE_POSITION);
+        mClockDatePosition.setOnPreferenceChangeListener(this);
+        mClockDatePosition.setValue(Integer.toString(Settings.System.getInt(resolver,
+                Settings.System.STATUSBAR_CLOCK_DATE_POSITION, 0)));
+        mClockDatePosition.setSummary(mClockDatePosition.getEntry());
 
         mClockDateFormat = (ListPreference) findPreference(CLOCK_DATE_FORMAT);
         mClockDateFormat.setOnPreferenceChangeListener(this);
@@ -124,6 +132,13 @@ public class ClockOptions extends SettingsPreferenceFragment implements
         }
 
         parseClockDateFormats();
+        updateClockDate(Settings.System.getInt(resolver,
+                Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY, 0));
+    }
+
+	@Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        return super.onPreferenceTreeClick(preference);
     }
 
     @Override
@@ -159,13 +174,7 @@ public class ClockOptions extends SettingsPreferenceFragment implements
             Settings.System.putInt(resolver,
                     Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY, val);
             mClockDateDisplay.setSummary(mClockDateDisplay.getEntries()[index]);
-            if (val == 0) {
-                mClockDateStyle.setEnabled(false);
-                mClockDateFormat.setEnabled(false);
-            } else {
-                mClockDateStyle.setEnabled(true);
-                mClockDateFormat.setEnabled(true);
-            }
+            updateClockDate(val);
             return true;
         } else if (preference == mClockDateStyle) {
             int val = Integer.parseInt((String) newValue);
@@ -175,6 +184,13 @@ public class ClockOptions extends SettingsPreferenceFragment implements
             mClockDateStyle.setSummary(mClockDateStyle.getEntries()[index]);
             parseClockDateFormats();
             return true;
+        } else if (preference == mClockDatePosition) {
+          int val = Integer.parseInt((String) newValue);
+          int index = mClockDatePosition.findIndexOfValue((String) newValue);
+          Settings.System.putInt(resolver,
+                  Settings.System.STATUSBAR_CLOCK_DATE_POSITION, val);
+          mClockDatePosition.setSummary(mClockDatePosition.getEntries()[index]);
+          return true;
         } else if (preference == mClockDateFormat) {
             int index = mClockDateFormat.findIndexOfValue((String) newValue);
 
@@ -222,6 +238,18 @@ public class ClockOptions extends SettingsPreferenceFragment implements
             return true;
         }
         return false;
+    }
+    
+    private void updateClockDate(int index) {
+        if (index == 0) {
+            mClockDateStyle.setEnabled(false);
+            mClockDateFormat.setEnabled(false);
+            mClockDatePosition.setEnabled(false);
+        } else {
+            mClockDateStyle.setEnabled(true);
+            mClockDateFormat.setEnabled(true);
+            mClockDatePosition.setEnabled(true);
+        }
     }
 
     private void parseClockDateFormats() {
