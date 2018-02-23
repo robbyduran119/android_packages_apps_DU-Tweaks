@@ -69,6 +69,12 @@
         android:summary="@string/gesture_anywhere_summary"
         android:fragment="com.dirtyunicorns.tweaks.gestureanywhere.GestureAnywhereSettings" />
 
+    <Preference
+        android:key="edge_gestures"
+        android:title="@string/edge_gestures_title"
+        android:summary="@string/edge_gestures_summary"
+        android:fragment="com.dirtyunicorns.tweaks.fragments.EdgeGesturesSettings"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
