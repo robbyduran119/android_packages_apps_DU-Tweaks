@@ -49,7 +49,7 @@ import android.widget.ListView;
 import com.android.internal.logging.nano.MetricsProto;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.Utils;
+import com.dirtyunicorns.tweaks.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,6 +61,7 @@ public class Recents extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, DialogInterface.OnDismissListener {
 
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
+    private static final String RECENTS_TYPE = "recents_layout_style";
 
     private final static String[] sSupportedActions = new String[] {
         "org.adw.launcher.THEMES",
@@ -80,6 +81,7 @@ public class Recents extends SettingsPreferenceFragment implements
     private PreferenceCategory mStockRecents;
     private PreferenceCategory mSlimRecents;
     private SwitchPreference mSlimToggle;
+    private ListPreference mRecentsType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,14 @@ public class Recents extends SettingsPreferenceFragment implements
         mRecentsClearAllLocation.setSummary(mRecentsClearAllLocation.getEntry());
         mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
 
+        // recents type
+        mRecentsType = (ListPreference) findPreference(RECENTS_TYPE);
+        int style = Settings.System.getIntForUser(resolver,
+                Settings.System.RECENTS_LAYOUT_STYLE, 0, UserHandle.USER_CURRENT);
+        mRecentsType.setValue(String.valueOf(style));
+        mRecentsType.setSummary(mRecentsType.getEntry());
+        mRecentsType.setOnPreferenceChangeListener(this);
+
         mSlimToggle = (SwitchPreference) findPreference("use_slim_recents");
         mSlimToggle.setChecked(Settings.System.getIntForUser(resolver,
                 Settings.System.USE_SLIM_RECENTS, 0,
@@ -117,6 +127,14 @@ public class Recents extends SettingsPreferenceFragment implements
             Settings.System.putIntForUser(resolver,
                     Settings.System.RECENTS_CLEAR_ALL_LOCATION, location, UserHandle.USER_CURRENT);
             mRecentsClearAllLocation.setSummary(mRecentsClearAllLocation.getEntries()[index]);
+            return true;
+        } else if (preference == mRecentsType) {
+            int style = Integer.valueOf((String) newValue);
+            int index = mRecentsType.findIndexOfValue((String) newValue);
+            Settings.System.putIntForUser(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_LAYOUT_STYLE, style, UserHandle.USER_CURRENT);
+            mRecentsType.setSummary(mRecentsType.getEntries()[index]);
+            Utils.restartSystemUi(getContext());
             return true;
         } else if (preference == mSlimToggle) {
             boolean value = (Boolean) newValue;
