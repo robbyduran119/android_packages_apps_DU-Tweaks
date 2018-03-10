@@ -991,7 +991,6 @@
     <string name="wallpaper_tint_summary">Apply a tint to the background based on the homescreen wallpaper</string>
 
     <!-- SystemUI Restart -->
-    <string name="systemui_restart_title">SystemUI restart required</string>
-    <string name="systemui_restart_message">For all changes to take effect, a SystemUI restart is required. Restart SystemUI now?</string>
+    <string name="systemui_restart_toast">This feature requires a SystemUI restart to be applied. We\'ll restart the SystemUI right now.</string>
 
 </resources>
