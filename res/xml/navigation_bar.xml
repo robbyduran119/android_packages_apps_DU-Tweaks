@@ -50,9 +50,15 @@
             android:title="@string/default_settings"
             android:summary="@string/default_settings_summary">
             <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.systemui"
-                android:targetClass="com.android.systemui.tuner.NavBarActivity" />
+            android:targetPackage="com.android.systemui"
+            android:targetClass="com.android.systemui.tuner.NavBarActivity" />
         </Preference>
+        
+        <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
+            android:key="anbi_enabled"
+            android:title="@string/anbi_title"
+            android:summary="@string/anbi_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
