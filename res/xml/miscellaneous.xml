@@ -25,6 +25,12 @@
         android:title="@string/three_finger_gesture"
         android:summary="@string/three_finger_gesture_summary"
         android:defaultValue="false" />
+        
+    <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
+        android:key="system_default_animation"
+        android:title="@string/system_default_animation_title"
+        android:summary="@string/system_default_animation_summary"
+        android:defaultValue="false" />
 
     </PreferenceCategory>
 
