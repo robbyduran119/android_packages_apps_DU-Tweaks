@@ -719,6 +719,7 @@
     <string name="qs_set_animation_interpolator">%1$s</string>
 
     <!-- System default animation -->
+    <string name="system_default_animation_category">System animation</string>
     <string name="system_default_animation_title">Android P animation style</string>
     <string name="system_default_animation_summary">Enable Android P \"Default\" animations</string>
 

@@ -25,12 +25,6 @@
         android:title="@string/three_finger_gesture"
         android:summary="@string/three_finger_gesture_summary"
         android:defaultValue="false" />
-        
-    <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
-        android:key="system_default_animation"
-        android:title="@string/system_default_animation_title"
-        android:summary="@string/system_default_animation_summary"
-        android:defaultValue="false" />
 
     </PreferenceCategory>
 
@@ -38,4 +32,16 @@
         android:key="screenshot_edit_app"
         android:title="@string/screenshot_edit_app"
         android:summary="@string/screenshot_edit_app_summary" />
+        
+    <PreferenceCategory
+        android:key="system_animation"
+        android:title="@string/system_default_animation_category" >
+        
+    <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
+        android:key="system_default_animation"
+        android:title="@string/system_default_animation_title"
+        android:summary="@string/system_default_animation_summary"
+        android:defaultValue="false" />
+
+    </PreferenceCategory>        
 </PreferenceScreen>
