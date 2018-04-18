@@ -37,7 +37,7 @@
         android:key="system_animation"
         android:title="@string/system_default_animation_category" >
         
-    <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
+    <com.dirtyunicorns.tweaks.preferences.GlobalSettingSwitchPreference
         android:key="system_default_animation"
         android:title="@string/system_default_animation_title"
         android:summary="@string/system_default_animation_summary"

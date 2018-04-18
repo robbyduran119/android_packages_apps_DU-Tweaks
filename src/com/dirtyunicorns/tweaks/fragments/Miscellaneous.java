@@ -18,6 +18,7 @@ package com.dirtyunicorns.tweaks.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -114,6 +115,12 @@ public class Miscellaneous extends SettingsPreferenceFragment implements
                     Toast.LENGTH_LONG).show();
         }
         return true;
+    }
+    
+    public static void reset(Context mContext) {
+        ContentResolver resolver = mContext.getContentResolver();
+        Settings.Global.putInt(resolver,
+                Settings.Global.SYSTEM_DEFAULT_ANIMATION, 0);
     }
 
     @Override
