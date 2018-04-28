@@ -754,4 +754,9 @@
     <string name="various_tweaks_category">Lil Assassin</string>
     <string name="sensor_block_title">Sensor block per-package</string>
     <string name="sensor_block_summary">Block access to certain sensors for some apps to save battery.</string>
+    
+    <!-- Dynamic Navbar -->
+    <string name="navbar_dynamic_title">Dynamic navbar color</string>
+    <string name="navbar_dynamic_summary">Adapt navbar color to match foreground running app</string>
+    <string name="restart_app_required">Restart respective app to see effect</string>
 </resources>

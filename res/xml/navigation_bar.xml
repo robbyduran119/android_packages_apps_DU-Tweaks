@@ -85,11 +85,18 @@
                 android:max="135"
                 settings:min="65"
                 settings:units="%" />
-        <PreferenceScreen
-            android:key="pulse_settings"
-            android:title="@string/pulse_settings"
-            android:summary="@string/pulse_settings_summary"
-            android:fragment="com.dirtyunicorns.tweaks.fragments.PulseSettings" />
+
+          <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
+              android:key="navbar_dynamic"
+              android:title="@string/navbar_dynamic_title"
+              android:summary="@string/navbar_dynamic_summary"
+              android:defaultValue="false" />
+
+          <PreferenceScreen
+              android:key="pulse_settings"
+              android:title="@string/pulse_settings"
+              android:summary="@string/pulse_settings_summary"
+              android:fragment="com.dirtyunicorns.tweaks.fragments.PulseSettings" />
 
     </PreferenceCategory>
 </PreferenceScreen>
