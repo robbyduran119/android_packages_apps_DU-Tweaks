@@ -46,7 +46,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory
-        android:key="various_tweaks"
+        android:key="lil_assassin"
         android:title="@string/various_tweaks_category" >
     
     <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
