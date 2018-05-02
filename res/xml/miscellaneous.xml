@@ -14,7 +14,9 @@
      limitations under the License.
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
+            android:title="@string/miscellaneous_title" >
 
     <PreferenceCategory
         android:key="screenshot_options"
@@ -32,11 +34,11 @@
         android:key="screenshot_edit_app"
         android:title="@string/screenshot_edit_app"
         android:summary="@string/screenshot_edit_app_summary" />
-        
+
     <PreferenceCategory
         android:key="system_animation"
         android:title="@string/system_default_animation_category" >
-        
+
     <com.dirtyunicorns.tweaks.preferences.GlobalSettingSwitchPreference
         android:key="system_default_animation"
         android:title="@string/system_default_animation_title"
@@ -44,17 +46,17 @@
         android:defaultValue="false" />
 
     </PreferenceCategory>
-    
+
     <PreferenceCategory
         android:key="lil_assassin"
         android:title="@string/various_tweaks_category" >
-    
+
     <com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference
         android:key="sensor_block"
         android:title="@string/sensor_block_title"
         android:summary="@string/sensor_block_summary"
         android:defaultValue="false" />
-        
+
     </PreferenceCategory>
-            
+
 </PreferenceScreen>
