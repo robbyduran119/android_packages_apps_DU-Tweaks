@@ -59,11 +59,4 @@
 
     </PreferenceCategory>
 
-    <Preference
-        android:key="chooser_activity_blacklist"
-        android:fragment="com.dirtyunicorns.tweaks.fragments.ChooserActivityBlacklist"
-        android:title="@string/chooser_activity_blacklist_title"
-        android:summary="@string/chooser_activity_blacklist_summary"
-        android:persistent="false" />
-
 </PreferenceScreen>
