@@ -16,9 +16,15 @@
 
 package com.dirtyunicorns.tweaks.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
@@ -32,6 +38,7 @@ import com.android.internal.utils.du.DUActionUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import com.dirtyunicorns.tweaks.preferences.CustomSeekBarPreference;
 
 import com.android.internal.logging.nano.MetricsProto;
 
@@ -40,10 +47,17 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
     private static final String TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture";
     private static final String PREF_LOCKSCREEN_BATTERY_INFO = "lockscreen_battery_info";
     private static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
+    private static final String LOCK_DATE_FONTS = "lock_date_fonts";
+    private static final String CLOCK_FONT_SIZE  = "lockclock_font_size";
+    private static final String DATE_FONT_SIZE  = "lockdate_font_size";
 
     private ListPreference mTorchPowerButton;
     private SwitchPreference mLockscreenBatteryInfo;
+    private CustomSeekBarPreference mClockFontSize;
+    private CustomSeekBarPreference mDateFontSize;
+
     ListPreference mLockClockFonts;
+    ListPreference mLockDateFonts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +66,31 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
 
         ContentResolver resolver = getActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
+        Resources resources = getResources();
+
+        // Lockscren Clock Fonts
+        mLockClockFonts = (ListPreference) findPreference(LOCK_CLOCK_FONTS);
+        mLockClockFonts.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.LOCK_CLOCK_FONTS, 0)));
+        mLockClockFonts.setSummary(mLockClockFonts.getEntry());
+        mLockClockFonts.setOnPreferenceChangeListener(this);
+
+        mClockFontSize = (CustomSeekBarPreference) findPreference(CLOCK_FONT_SIZE);
+        mClockFontSize.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKCLOCK_FONT_SIZE, 72));
+        mClockFontSize.setOnPreferenceChangeListener(this);
+
+        // Lockscren Date Fonts
+        mLockDateFonts = (ListPreference) findPreference(LOCK_DATE_FONTS);
+        mLockDateFonts.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.LOCK_DATE_FONTS, 0)));
+        mLockDateFonts.setSummary(mLockDateFonts.getEntry());
+        mLockDateFonts.setOnPreferenceChangeListener(this);
+
+        mDateFontSize = (CustomSeekBarPreference) findPreference(DATE_FONT_SIZE);
+        mDateFontSize.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKDATE_FONT_SIZE,14));
+        mDateFontSize.setOnPreferenceChangeListener(this);
 
         mFooterPreferenceMixin.createFooterPreference().setTitle(R.string.lockscreen_torch_warning_text);
 
@@ -74,12 +113,6 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
         if (Build.BOARD.contains("dragon") || Build.BOARD.contains("shieldtablet")) {
             prefScreen.removePreference(mLockscreenBatteryInfo);
         }
-
-        mLockClockFonts = (ListPreference) findPreference(LOCK_CLOCK_FONTS);
-        mLockClockFonts.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.LOCK_CLOCK_FONTS, 0)));
-        mLockClockFonts.setSummary(mLockClockFonts.getEntry());
-        mLockClockFonts.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -103,6 +136,22 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
                     Integer.valueOf((String) newValue));
             mLockClockFonts.setValue(String.valueOf(newValue));
             mLockClockFonts.setSummary(mLockClockFonts.getEntry());
+            return true;
+        } else if (preference == mLockDateFonts) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCK_DATE_FONTS,
+                    Integer.valueOf((String) newValue));
+            mLockDateFonts.setValue(String.valueOf(newValue));
+            mLockDateFonts.setSummary(mLockDateFonts.getEntry());
+            return true;
+        } else if (preference == mClockFontSize) {
+            int top = (Integer) newValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKCLOCK_FONT_SIZE, top*1);
+            return true;
+        } else if (preference == mDateFontSize) {
+            int top = (Integer) newValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKDATE_FONT_SIZE, top*1);
             return true;
         }
         return false;
