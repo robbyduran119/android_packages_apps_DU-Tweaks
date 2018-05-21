@@ -50,14 +50,18 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
     private static final String LOCK_DATE_FONTS = "lock_date_fonts";
     private static final String CLOCK_FONT_SIZE  = "lockclock_font_size";
     private static final String DATE_FONT_SIZE  = "lockdate_font_size";
+    private static final String LOCK_OWNER_FONTS = "lock_owner_fonts";
+    private static final String OWNER_FONT_SIZE  = "lockowner_font_size";
 
     private ListPreference mTorchPowerButton;
     private SwitchPreference mLockscreenBatteryInfo;
     private CustomSeekBarPreference mClockFontSize;
     private CustomSeekBarPreference mDateFontSize;
+    private CustomSeekBarPreference mOwnerFontSize;
 
     ListPreference mLockClockFonts;
     ListPreference mLockDateFonts;
+    ListPreference mLockOwnerFonts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,18 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
         mDateFontSize.setValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKDATE_FONT_SIZE,14));
         mDateFontSize.setOnPreferenceChangeListener(this);
+
+        // Lockscren Owner Fonts
+        mLockOwnerFonts = (ListPreference) findPreference(LOCK_OWNER_FONTS);
+        mLockOwnerFonts.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.LOCK_OWNER_FONTS, 0)));
+        mLockOwnerFonts.setSummary(mLockOwnerFonts.getEntry());
+        mLockOwnerFonts.setOnPreferenceChangeListener(this);
+
+        mOwnerFontSize = (CustomSeekBarPreference) findPreference(OWNER_FONT_SIZE);
+        mOwnerFontSize.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKOWNER_FONT_SIZE,14));
+        mOwnerFontSize.setOnPreferenceChangeListener(this);
 
         mFooterPreferenceMixin.createFooterPreference().setTitle(R.string.lockscreen_torch_warning_text);
 
@@ -143,6 +159,12 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
             mLockDateFonts.setValue(String.valueOf(newValue));
             mLockDateFonts.setSummary(mLockDateFonts.getEntry());
             return true;
+        } else if (preference == mLockOwnerFonts) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCK_OWNER_FONTS,
+                    Integer.valueOf((String) newValue));
+            mLockOwnerFonts.setValue(String.valueOf(newValue));
+            mLockOwnerFonts.setSummary(mLockOwnerFonts.getEntry());
+            return true;
         } else if (preference == mClockFontSize) {
             int top = (Integer) newValue;
             Settings.System.putInt(getContentResolver(),
@@ -152,6 +174,11 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
             int top = (Integer) newValue;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKDATE_FONT_SIZE, top*1);
+            return true;
+        } else if (preference == mOwnerFontSize) {
+            int top = (Integer) newValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKOWNER_FONT_SIZE, top*1);
             return true;
         }
         return false;
