@@ -407,8 +407,8 @@ public class NotificationLightSettings extends SettingsPreferenceFragment implem
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.heads_up_blacklist_dialog_delete_title)
-                .setMessage(R.string.heads_up_blacklist_dialog_delete_message)
+                .setTitle(R.string.heads_up_dialog_delete_title)
+                .setMessage(R.string.heads_up_dialog_delete_message)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -472,7 +472,7 @@ public class NotificationLightSettings extends SettingsPreferenceFragment implem
                 final ListView list = new ListView(getActivity());
                 list.setAdapter(mPackageAdapter);
 
-                builder.setTitle(R.string.heads_up_blacklist_choose_app);
+                builder.setTitle(R.string.heads_up_choose_app);
                 builder.setView(list);
                 dialog = builder.create();
 
