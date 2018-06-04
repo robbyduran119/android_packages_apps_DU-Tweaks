@@ -36,7 +36,7 @@
         android:summary="@string/screenshot_edit_app_summary" />
 
     <PreferenceCategory
-        android:key="android_p_shit!"
+        android:key="system_ui"
         android:title="@string/system_default_animation_category" >
 
     <com.dirtyunicorns.tweaks.preferences.GlobalSettingSwitchPreference
@@ -44,6 +44,12 @@
         android:title="@string/system_default_animation_title"
         android:summary="@string/system_default_animation_summary"
         android:defaultValue="false" />
+
+    <Preference
+        android:key="blur_cat"
+        android:title="@string/settings_blur_cat"
+        android:summary="@string/settings_blur_sum"
+        android:fragment="com.dirtyunicorns.tweaks.fragments.BlurPersonalizations" />
 
     </PreferenceCategory>
 
