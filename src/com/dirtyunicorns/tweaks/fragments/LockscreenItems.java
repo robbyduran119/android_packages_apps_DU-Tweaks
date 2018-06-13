@@ -78,10 +78,10 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
         final PreferenceScreen prefScreen = getPreferenceScreen();
         Resources resources = getResources();
 
-        // Lockscren Clock Fonts
+        // Lockscren Clock Fonts & Fonts Size
         mLockClockFonts = (ListPreference) findPreference(LOCK_CLOCK_FONTS);
         mLockClockFonts.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.LOCK_CLOCK_FONTS, 0)));
+                getContentResolver(), Settings.System.LOCK_CLOCK_FONTS, 12)));
         mLockClockFonts.setSummary(mLockClockFonts.getEntry());
         mLockClockFonts.setOnPreferenceChangeListener(this);
 
@@ -90,10 +90,10 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
                 Settings.System.LOCKCLOCK_FONT_SIZE, 72));
         mClockFontSize.setOnPreferenceChangeListener(this);
 
-        // Lockscren Date Fonts
+        // Lockscren Date Fonts & Fonts Size
         mLockDateFonts = (ListPreference) findPreference(LOCK_DATE_FONTS);
         mLockDateFonts.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.LOCK_DATE_FONTS, 0)));
+                getContentResolver(), Settings.System.LOCK_DATE_FONTS, 13)));
         mLockDateFonts.setSummary(mLockDateFonts.getEntry());
         mLockDateFonts.setOnPreferenceChangeListener(this);
 
@@ -102,10 +102,10 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
                 Settings.System.LOCKDATE_FONT_SIZE,14));
         mDateFontSize.setOnPreferenceChangeListener(this);
 
-        // Lockscren Owner Fonts
+        // Lockscren Owner Fonts & Fonts Size
         mLockOwnerFonts = (ListPreference) findPreference(LOCK_OWNER_FONTS);
         mLockOwnerFonts.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.LOCK_OWNER_FONTS, 0)));
+                getContentResolver(), Settings.System.LOCK_OWNER_FONTS, 13)));
         mLockOwnerFonts.setSummary(mLockOwnerFonts.getEntry());
         mLockOwnerFonts.setOnPreferenceChangeListener(this);
 
@@ -138,14 +138,14 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
 
         mLockscreenClockSelection = (ListPreference) findPreference(KEY_LOCKSCREEN_CLOCK_SELECTION);
         int clockSelection = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_CLOCK_SELECTION, 0, UserHandle.USER_CURRENT);
+                Settings.System.LOCKSCREEN_CLOCK_SELECTION, 3, UserHandle.USER_CURRENT);
         mLockscreenClockSelection.setValue(String.valueOf(clockSelection));
         mLockscreenClockSelection.setSummary(mLockscreenClockSelection.getEntry());
         mLockscreenClockSelection.setOnPreferenceChangeListener(this);
 
         mLockscreenDateSelection = (ListPreference) findPreference(KEY_LOCKSCREEN_DATE_SELECTION);
         int dateSelection = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_DATE_SELECTION, 0, UserHandle.USER_CURRENT);
+                Settings.System.LOCKSCREEN_DATE_SELECTION, 2, UserHandle.USER_CURRENT);
         mLockscreenDateSelection.setValue(String.valueOf(dateSelection));
         mLockscreenDateSelection.setSummary(mLockscreenDateSelection.getEntry());
         mLockscreenDateSelection.setOnPreferenceChangeListener(this);
