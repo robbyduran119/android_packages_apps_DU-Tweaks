@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceGroup;
@@ -39,12 +40,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.android.internal.logging.nano.MetricsProto;
+
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+
 import com.dirtyunicorns.tweaks.preferences.GlobalSettingSwitchPreference;
 import com.dirtyunicorns.tweaks.preferences.PackageListAdapter;
 import com.dirtyunicorns.tweaks.preferences.PackageListAdapter.PackageItem;
-import android.provider.Settings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
