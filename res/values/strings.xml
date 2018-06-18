@@ -109,7 +109,7 @@
     <string name="theme_applied_toast">Theme applied!</string>
     <string name="disable_themes_installed_title">System themes are unavailable because a Substratum overlay is installed. Please uninstall all overlays targeting Android System to proceed.</string>
     <string name="disable_accents_installed_title">Accent picker are unavailable because a Substratum overlay is installed. Please uninstall all overlays targeting Android System to proceed.</string>
-    <string name="disable_fonts_installed_title">Be WARNED: Font picker may conflicts with Substratum. Do NOT apply at the same time; Apply separately...!</string>
+    <string name="disable_fonts_installed_title">Be WARNED: Font picker may conflicts with Substratum. DO NOT apply at the same time; Apply/Use DU or Subs Fonts separately...and REBOOT!</string>
     <string name="accent_picker_dialog_title">Select an accent color</string>
     <string name="theme_accent_picker_title">Accent color</string>
     <string name="theme_accent_picker_summary">Select system theme accent color</string>
