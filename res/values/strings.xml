@@ -236,6 +236,12 @@
     <string name="lockscreen_date_selection_default">Default</string>
     <string name="lockscreen_date_selection_str_box">Semi-transparent box</string>
     <string name="lockscreen_date_selection_str_round">Semi-transparent box (round)</string>
+    <string name="lockscreen_date_selection_outline_box">White outline</string> 
+    <string name="lockscreen_date_selection_outline_round">White outline (Round)</string>
+    <string name="lockscreen_date_selection_outline_box_black">Black outline</string> 
+    <string name="lockscreen_date_selection_outline_round_black">Black outline (Round)</string>
+    <string name="lockscreen_date_selection_outline_box_accent">Accent based outline</string> 
+    <string name="lockscreen_date_selection_outline_round_accent">Accent based (Round)</string>
     <string name="hide_lockscreen_alarm_title">Alarm text</string>
     <string name="hide_lockscreen_alarm_summary">Change the alarm text\'s visibility underneath the clock widget</string>
 
