@@ -56,6 +56,7 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
     private static final String OWNER_FONT_SIZE  = "lockowner_font_size";
     private static final String KEY_LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
     private static final String KEY_LOCKSCREEN_DATE_SELECTION = "lockscreen_date_selection";
+    private static final String LOCKSCREEN_MAX_NOTIF_CONFIG = "lockscreen_max_notif_cofig";
 
     private ListPreference mTorchPowerButton;
     private SwitchPreference mLockscreenBatteryInfo;
@@ -64,6 +65,7 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
     private CustomSeekBarPreference mOwnerFontSize;
     private ListPreference mLockscreenClockSelection;
     private ListPreference mLockscreenDateSelection;
+    private CustomSeekBarPreference mMaxKeyguardNotifConfig;
 
     ListPreference mLockClockFonts;
     ListPreference mLockDateFonts;
@@ -149,6 +151,12 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
         mLockscreenDateSelection.setValue(String.valueOf(dateSelection));
         mLockscreenDateSelection.setSummary(mLockscreenDateSelection.getEntry());
         mLockscreenDateSelection.setOnPreferenceChangeListener(this);
+
+        mMaxKeyguardNotifConfig = (CustomSeekBarPreference) findPreference(LOCKSCREEN_MAX_NOTIF_CONFIG);
+        int kgconf = Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, 3);
+        mMaxKeyguardNotifConfig.setValue(kgconf);
+        mMaxKeyguardNotifConfig.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -213,6 +221,11 @@ public class LockscreenItems extends SettingsPreferenceFragment implements Prefe
             Settings.System.putIntForUser(resolver,
                     Settings.System.LOCKSCREEN_DATE_SELECTION, dateSelection, UserHandle.USER_CURRENT);
             mLockscreenDateSelection.setSummary(mLockscreenDateSelection.getEntries()[index]);
+            return true;
+        } else if (preference == mMaxKeyguardNotifConfig) {
+            int kgconf = (Integer) newValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, kgconf);
             return true;
         }
         return false;
