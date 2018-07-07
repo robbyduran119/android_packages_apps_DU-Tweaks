@@ -242,6 +242,8 @@
     <string name="lockscreen_date_selection_outline_round_black">Black outline (Round)</string>
     <string name="lockscreen_date_selection_outline_box_accent">Accent based outline</string> 
     <string name="lockscreen_date_selection_outline_round_accent">Accent based (Round)</string>
+    <string name="lockscreen_date_selection_str_box_accent">Semi-trans box/accent</string>
+    <string name="lockscreen_date_selection_str_round_accent">Semi-trans box/accent (Round)</string>
     <string name="hide_lockscreen_alarm_title">Alarm text</string>
     <string name="hide_lockscreen_alarm_summary">Change the alarm text\'s visibility underneath the clock widget</string>
 
