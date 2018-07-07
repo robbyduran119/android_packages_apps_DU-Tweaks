@@ -783,9 +783,11 @@
     <string name="qs_set_animation_interpolator">%1$s</string>
 
     <!-- System default animation -->
-    <string name="system_default_animation_category">System animation</string>
+    <string name="system_default_animation_category">Android P Shit!</string>
     <string name="system_default_animation_title">Android P animation style</string>
     <string name="system_default_animation_summary">Enable Android P \"Default\" animations</string>
+
+    <string name="volume_dialog_dim">Volume dialog dim background amount</string>
 
     <!-- Smart Pixels -->
     <string name="smart_pixels_title">Smart Pixels</string>

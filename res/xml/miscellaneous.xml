@@ -36,7 +36,7 @@
         android:summary="@string/screenshot_edit_app_summary" />
 
     <PreferenceCategory
-        android:key="system_animation"
+        android:key="android_p_shit!"
         android:title="@string/system_default_animation_category" >
 
     <com.dirtyunicorns.tweaks.preferences.GlobalSettingSwitchPreference
@@ -44,6 +44,14 @@
         android:title="@string/system_default_animation_title"
         android:summary="@string/system_default_animation_summary"
         android:defaultValue="false" />
+
+    <com.dirtyunicorns.tweaks.preferences.CustomSeekBarPreference
+        android:key="transparent_volume_dialog_dim"  
+        android:title="@string/volume_dialog_dim"  
+        android:max="100"  
+        settings:min="0"  
+        settings:units="%"  
+        android:defaultValue="50" />
 
     </PreferenceCategory>
 
