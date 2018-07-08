@@ -45,14 +45,6 @@
         android:summary="@string/system_default_animation_summary"
         android:defaultValue="false" />
 
-    <com.dirtyunicorns.tweaks.preferences.CustomSeekBarPreference
-        android:key="transparent_volume_dialog_dim"  
-        android:title="@string/volume_dialog_dim"  
-        android:max="100"  
-        settings:min="0"  
-        settings:units="%"  
-        android:defaultValue="50" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
