@@ -1075,4 +1075,8 @@
     <string name="edge_gestures_back_use_black_arrow_title">Back button dark color</string>
     <string name="edge_gestures_back_use_black_arrow_summary">Show black back button instead of the white version</string>
 
+    <!-- OP like navigation gestures -->
+    <string name="use_bottom_gesture_title">Use swipe up gestures for navigation</string>
+    <string name="use_bottom_gesture_summary">Works only with navigation bar disable</string>
+
 </resources>
