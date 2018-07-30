@@ -16,6 +16,7 @@
 
 package com.dirtyunicorns.tweaks.fragments;
 
+import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -30,11 +31,13 @@ import android.provider.Settings;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.Utils;
+//import com.android.settings.Utils;
 
 import com.android.internal.logging.nano.MetricsProto;
 
 import com.dirtyunicorns.tweaks.preferences.CustomSeekBarPreference;
+import com.dirtyunicorns.tweaks.preferences.SystemSettingSwitchPreference;
+import com.dirtyunicorns.tweaks.Utils;
 
 public class QuickSettings extends SettingsPreferenceFragment implements Preference.OnPreferenceChangeListener {
 
@@ -44,6 +47,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements Prefere
     private static final String PREF_TILE_ANIM_STYLE = "qs_tile_animation_style";
     private static final String PREF_TILE_ANIM_DURATION = "qs_tile_animation_duration";
     private static final String PREF_TILE_ANIM_INTERPOLATOR = "qs_tile_animation_interpolator";
+    private static final String QS_TILE_TINTING = "qs_tile_tinting_enable";
 
     private ListPreference mQuickPulldown;
     private CustomSeekBarPreference mQsColumns;
@@ -51,6 +55,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements Prefere
     private ListPreference mTileAnimationStyle;
     private ListPreference mTileAnimationDuration;
     private ListPreference mTileAnimationInterpolator;
+    private SwitchPreference mEnableQsTileTinting;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,10 +108,17 @@ public class QuickSettings extends SettingsPreferenceFragment implements Prefere
         mTileAnimationInterpolator.setValue(String.valueOf(tileAnimationInterpolator));
         updateTileAnimationInterpolatorSummary(tileAnimationInterpolator);
         mTileAnimationInterpolator.setOnPreferenceChangeListener(this);
+
+        //QS Tile Theme
+        mEnableQsTileTinting = (SwitchPreference) findPreference(QS_TILE_TINTING);
+        mEnableQsTileTinting.setChecked(Settings.System.getInt(resolver,
+                Settings.System.QS_TILE_TINTING_ENABLE, 1) == 1);
+        mEnableQsTileTinting.setOnPreferenceChangeListener(this);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mQuickPulldown) {
             int quickPulldownValue = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(getContentResolver(), Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
@@ -142,6 +154,12 @@ public class QuickSettings extends SettingsPreferenceFragment implements Prefere
             Settings.System.putIntForUser(getContentResolver(), Settings.System.ANIM_TILE_INTERPOLATOR,
                     tileAnimationInterpolator, UserHandle.USER_CURRENT);
             updateTileAnimationInterpolatorSummary(tileAnimationInterpolator);
+            return true;
+       } else if (preference == mEnableQsTileTinting) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver,
+                    Settings.System.QS_TILE_TINTING_ENABLE, value ? 1 : 0);
+            Utils.restartSystemUi(getContext());
             return true;
        }
         return false;
