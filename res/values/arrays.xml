@@ -683,6 +683,7 @@
         <item>@string/lock_clock_font_snowstorm</item>
         <item>@string/lock_clock_font_themeable</item>
         <item>@string/lock_clock_font_union</item>
+        <item>@string/lock_clock_font_sammy</item>
     </string-array>
 
     <string-array name="lock_clock_fonts_values" translatable="false">
@@ -713,6 +714,7 @@
         <item>24</item>
         <item>25</item>
         <item>26</item>
+        <item>27</item>
     </string-array>
 
     <!-- Lock Date Fonts -->
@@ -744,6 +746,7 @@
         <item>@string/lock_clock_font_riviera</item>
         <item>@string/lock_clock_font_theoutbox</item>
         <item>@string/lock_dateown_font_themeable</item>
+        <item>@string/lock_clock_font_sammy</item>
     </string-array>
 
     <string-array name="lock_date_fonts_values" translatable="false">
@@ -774,6 +777,7 @@
         <item>24</item>
         <item>25</item>
         <item>26</item>
+        <item>27</item>
     </string-array>
 
     <!-- Lock Owner Fonts -->
