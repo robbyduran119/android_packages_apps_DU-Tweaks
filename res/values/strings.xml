@@ -870,6 +870,7 @@
     <string name="lock_clock_font_union" translatable="false">Union</string>
     <string name="lock_clock_font_themeable">Themeable (or VCR OSD Mono)</string>
     <string name="lock_dateown_font_themeable">Themeable (or Fox and Cat)</string>
+    <string name="lock_clock_font_sammy">Sammy</string>
 
     <string name="lock_date_font_title">Date and Alarm font options</string>
     <string name="lock_date_font_summary">Change the default font of the lockscreen date widget</string>
